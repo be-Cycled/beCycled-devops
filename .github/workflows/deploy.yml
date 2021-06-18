@@ -1,0 +1,22 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: deploy-beCycled.playbook.yml
+          directory: ./ansible
+          key: ${{secrets.PROD_SERVER_SSH_PRIVATE_KEY}}
+          inventory: |
+            [linux]
+            beCycled
+          options: |
+            --extra-vars "ansible_host=${{secrets.PROD_SERVER_IP}} github_login=${{secrets.GH_LOGIN}} github_token=${{secrets.GH_TOKEN}}"
