@@ -1,0 +1,15 @@
+---
+- name: Install useful tools
+  apt:
+    update_cache: true
+    name:
+      - screen
+      - curl
+      - jq
+      - zip
+      - unzip
+      - htop
+      - nmon
+      - iotop
+    state: present
+  when: ansible_distribution == 'Ubuntu'

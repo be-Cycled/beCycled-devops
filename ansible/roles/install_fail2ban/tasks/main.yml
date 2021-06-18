@@ -1,0 +1,32 @@
+---
+- name: Install fail2ban
+  apt:
+    update_cache: true
+    name: fail2ban
+    state: present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Create empty log file if not exist
+  copy:
+    content: ""
+    dest: /var/log/auth.log
+    force: no
+    owner: root
+    mode: 0555
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Configuration fail2ban
+  become: true
+  copy:
+    src: sshd.conf
+    dest: /etc/fail2ban/jail.d/sshd.conf
+    mode: 0644
+  notify: Restart fail2ban
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Start and enable service fail2ban
+  service:
+    name: fail2ban
+    state: started
+    enabled: true
+  when: ansible_distribution == 'Ubuntu'

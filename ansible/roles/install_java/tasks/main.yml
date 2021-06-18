@@ -1,0 +1,6 @@
+---
+- name: Install OpenJDK 11
+  apt:
+    update_cache: true
+    name: openjdk-11-jdk
+    state: present

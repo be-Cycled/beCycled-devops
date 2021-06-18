@@ -1,0 +1,70 @@
+---
+- hosts: beCycled
+  roles:
+    - apt_force_ipv4
+    - install_ufw
+    - install_fail2ban
+    - install_useful_tools
+    - install_docker
+    - install_java
+    - install_nodejs
+  post_tasks:
+    - name: Git clone backend
+      git:
+        repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-backend.git'
+        dest: /home/beCycled/beCycled-backend
+        version: main
+      register: backend_clone
+    - name: Build backend docker image
+      script: ../scripts/build_beCycled_backend.sh
+      when: backend_clone.changed
+
+    - name: Git clone frontend
+      git:
+        repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-frontend.git'
+        dest: /home/beCycled/beCycled-frontend
+        version: main
+      register: frontend_clone
+    - name: Build frontend docker image
+      script: ../scripts/build_beCycled_frontend.sh
+      when: frontend_clone.changed
+
+    - name: Git clone iot hub
+      git:
+        repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-iot-hub.git'
+        dest: /home/beCycled/beCycled-iot-hub
+        version: main
+      register: iot_clone
+    - name: Build iot hub docker image
+      script: ../scripts/build_beCycled_iot-hub.sh
+      when: iot_clone.changed
+
+    - name: Create directory for nginx config
+      file:
+        path: /home/beCycled/nginx
+        state: directory
+    - name: Copy nginx config
+      copy:
+        src: ../nginx/nginx.conf
+        dest: /home/beCycled/nginx/nginx.conf
+      register: nginx_conf
+
+    - name: Init docker-compose file
+      template:
+        src: docker-compose.yml.j2
+        dest: /home/beCycled/docker-compose.yml
+        mode: 0700
+      register: docker_compose
+
+    - name: Deploy
+      block:
+        - name: Tear down existing services
+          command: docker-compose down
+          args:
+            chdir: /home/beCycled
+
+        - name: Create and start services
+          command: docker-compose up -d
+          args:
+            chdir: /home/beCycled
+      when: backend_clone.changed or frontend_clone.changed or iot_clone.changed or nginx_conf.changed or docker_compose.changed

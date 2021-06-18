@@ -1,0 +1,76 @@
+version: '3.4'
+
+networks:
+  overlay:
+
+volumes:
+  postgres_data:
+    driver: local
+  nginx_letsencrypt:
+    driver: local
+
+services:
+  nginx:
+    image: jonasal/nginx-certbot:latest
+    container_name: becycled-nginx
+    restart: unless-stopped
+    environment:
+      - CERTBOT_EMAIL={{ certbot_email }}
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - overlay
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/user_conf.d/becycled.conf
+      - nginx_letsencrypt:/etc/letsencrypt
+
+  frontend:
+    image: becycled-frontend:latest
+    container_name: becycled-frontend
+    restart: unless-stopped
+    networks:
+      - overlay
+
+  backend:
+    image: becycled-backend:latest
+    container_name: becycled-backend
+    restart: unless-stopped
+    environment:
+      - JAVA_OPTIONS=-Xmx512m -Xmx2g
+    networks:
+      - overlay
+
+  iot-hub:
+    image: becycled-iot-hub:latest
+    container_name: becycled-iot-hub
+    restart: unless-stopped
+    environment:
+      - JAVA_OPTIONS=-Xmx512m -Xmx2g
+    networks:
+      - overlay
+
+  postgres:
+    image: postgres:13
+    container_name: becycled-postgresql
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB={{ postgres_db }}
+      - POSTGRES_USER={{ postgres_user }}
+      - POSTGRES_PASSWORD={{ postgres_password }}
+    networks:
+      - overlay
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: becycled-pgadmin
+    restart: unless-stopped
+    environment:
+      - PGADMIN_DEFAULT_EMAIL={{ pg_admin_email }}
+      - PGADMIN_DEFAULT_PASSWORD={{ pg_admin_password }}
+    ports:
+      - 5433:80
+    networks:
+      - overlay

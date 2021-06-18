@@ -1,0 +1,8 @@
+---
+- name: Force IPv4 for apt-get
+  lineinfile:
+    path: /etc/apt/apt.conf.d/99force-ipv4
+    line: Acquire::ForceIPv4 "true";
+    create: yes
+    mode: 0644
+  when: ansible_distribution == 'Ubuntu'

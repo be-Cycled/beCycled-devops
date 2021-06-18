@@ -1,0 +1,16 @@
+---
+# [ansible]
+ansible_user: root
+ansible_host: 127.0.0.1
+
+postgres_db: becycled
+postgres_user: becycled
+postgres_password: becycled
+
+pg_admin_email: pgadmin@becycled.me
+pg_admin_password: pgadmin
+
+certbot_email: becycled.me@gmail.com
+
+github_login: guest
+github_token: guest
