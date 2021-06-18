@@ -50,7 +50,7 @@ services:
     container_name: becycled-iot-hub
     restart: unless-stopped
     environment:
-      - JAVA_OPTIONS=-Xmx512m -Xmx2g -DdataSource.password={{ postgres_password }}
+      - JAVA_OPTIONS=-Xmx512m -Xmx2g -DdataSource.serverName=becycled-postgresql -DdataSource.password={{ postgres_password }}
     ports:
       - 10001:10001
     networks:
