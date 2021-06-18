@@ -6,6 +6,8 @@ networks:
 volumes:
   postgres_data:
     driver: local
+  pgadmin_data:
+    driver: local
   nginx_letsencrypt:
     driver: local
 
@@ -75,3 +77,5 @@ services:
       - 5433:80
     networks:
       - overlay
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
