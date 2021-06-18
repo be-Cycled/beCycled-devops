@@ -40,6 +40,7 @@ services:
     restart: unless-stopped
     environment:
       - JAVA_OPTIONS=-Xmx512m -Xmx2g
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://becycled-postgresql:5432/{{ postgres_db }}
       - SPRING_DATASOURCE_PASSWORD={{ postgres_password }}
     networks:
       - overlay
