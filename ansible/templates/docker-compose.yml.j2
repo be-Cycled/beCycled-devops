@@ -10,6 +10,8 @@ volumes:
     driver: local
   nginx_letsencrypt:
     driver: local
+  grafana_data:
+    driver: local
 
 services:
   nginx:
@@ -82,3 +84,16 @@ services:
       - overlay
     volumes:
       - pgadmin_data:/var/lib/pgadmin
+
+  grafana:
+    image: grafana/grafana
+    container_name: becycled-grafana
+    restart: unless-stopped
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+    ports:
+      - 3000:3000
+    networks:
+      - overlay
+    volumes:
+      - grafana_data:/var/lib/grafana
