@@ -1,0 +1,352 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "circleMaxSize": "1",
+      "circleMinSize": "1",
+      "colors": [
+        "#1F60C4",
+        "#56A64B",
+        "#FF9830",
+        "#C4162A"
+      ],
+      "datasource": null,
+      "decimals": 0,
+      "esMetric": "Count",
+      "gridPos": {
+        "h": 9,
+        "w": 23,
+        "x": 0,
+        "y": 0
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 4,
+      "initialZoom": "5",
+      "locationData": "table",
+      "mapCenter": "Europe",
+      "mapCenterLatitude": 46,
+      "mapCenterLongitude": 14,
+      "maxDataPoints": 1,
+      "mouseWheelZoom": true,
+      "pluginVersion": "7.3.4",
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "labelField": "",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "speed",
+        "queryType": "coordinates"
+      },
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT fix_time,\n       tracker_id,\n       speed,\n       latitude,\n       longitude\nFROM telemetries\nWHERE $__timeFilter(fix_time)\nGROUP BY fix_time, tracker_id\nORDER BY fix_time\nLIMIT 10000",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "latitude"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "telemetries",
+          "timeColumn": "\"time\"",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": "5,60,90",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Map",
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "valueName": "current"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 6,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT fix_time,\n       speed,\n       tracker_id\nFROM telemetries\nWHERE $__timeFilter(fix_time)\nGROUP BY fix_time, tracker_id\nORDER BY fix_time\nLIMIT 10000",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "latitude"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "telemetries",
+          "timeColumn": "fix_time",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Speed by tracker",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:714",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:715",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 7,
+      "legend": {
+        "alignAsTable": false,
+        "avg": true,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": true,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  date_trunc('hour', fix_time) as \"time\",\n  max(speed) as \"speed\"\nFROM telemetries\nWHERE\n  $__timeFilter(\"fix_time\")\nGROUP BY fix_time\nORDER BY fix_time\nLIMIT 100000",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "latitude"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "telemetries",
+          "timeColumn": "fix_time",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Max speed in 1 hour",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transparent": true,
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:714",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:715",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 30,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2021-06-18T22:06:24.088Z",
+    "to": "2021-06-19T11:16:55.016Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "becycled",
+  "uid": "i0MrXfg7z",
+  "version": 3
+}
