@@ -17,5 +17,12 @@ jobs:
           inventory: |
             [linux]
             beCycled
-          options: |
-            --extra-vars "github_login=${{secrets.GH_LOGIN}} github_token=${{secrets.GH_TOKEN}} ansible_host=${{secrets.PROD_SERVER_IP}} postgres_password=${{secrets.PG_PASSWORD}} pg_admin_password=${{secrets.PG_ADMIN_PASSWORD}}"
+          options: >-
+            --extra-vars
+            "
+            github_login=${{secrets.GH_LOGIN}}
+            github_token=${{secrets.GH_TOKEN}}
+            ansible_host=${{secrets.PROD_SERVER_IP}}
+            postgres_password=${{secrets.PG_PASSWORD}}
+            pg_admin_password=${{secrets.PG_ADMIN_PASSWORD}}
+            "
