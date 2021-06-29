@@ -5,7 +5,7 @@ docker pull node:lts
 
 cd /home/beCycled/beCycled-frontend
 git fetch --all
-git checkout main
+git checkout release
 git pull --all
 
 docker build -t becycled-frontend .

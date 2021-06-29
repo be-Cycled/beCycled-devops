@@ -23,7 +23,7 @@
       git:
         repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-frontend.git'
         dest: /home/beCycled/beCycled-frontend
-        version: main
+        version: release
       register: frontend_clone
     - name: Build frontend docker image
       script: ../scripts/build_beCycled_frontend.sh
