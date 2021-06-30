@@ -86,7 +86,7 @@ services:
       - pgadmin_data:/var/lib/pgadmin
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:latest
     container_name: becycled-grafana
     restart: unless-stopped
     environment:
@@ -97,3 +97,12 @@ services:
       - overlay
     volumes:
       - grafana_data:/var/lib/grafana
+
+  swagger:
+    image: swaggerapi/swagger-ui:latest
+    container_name: becycled-swagger
+    restart: unless-stopped
+    environment:
+      - URL=https://api.becycled.me/v2/api-docs
+    networks:
+      - overlay
