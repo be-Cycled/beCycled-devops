@@ -13,11 +13,21 @@
       git:
         repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-backend.git'
         dest: /home/beCycled/beCycled-backend
-        version: main
+        version: release
       register: backend_clone
     - name: Build backend docker image
       script: ../scripts/build_beCycled_backend.sh
       when: backend_clone.changed
+
+    - name: Git clone iot hub
+      git:
+        repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-iot-hub.git'
+        dest: /home/beCycled/beCycled-iot-hub
+        version: release
+      register: iot_clone
+    - name: Build iot hub docker image
+      script: ../scripts/build_beCycled_iot-hub.sh
+      when: iot_clone.changed
 
     - name: Git clone frontend
       git:
@@ -28,16 +38,6 @@
     - name: Build frontend docker image
       script: ../scripts/build_beCycled_frontend.sh
       when: frontend_clone.changed
-
-    - name: Git clone iot hub
-      git:
-        repo: 'https://{{ github_login }}:{{ github_token }}@github.com/be-Cycled/beCycled-iot-hub.git'
-        dest: /home/beCycled/beCycled-iot-hub
-        version: main
-      register: iot_clone
-    - name: Build iot hub docker image
-      script: ../scripts/build_beCycled_iot-hub.sh
-      when: iot_clone.changed
 
     - name: Create directory for nginx config
       file:
