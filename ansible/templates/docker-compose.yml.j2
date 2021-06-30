@@ -27,6 +27,7 @@ services:
       - overlay
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/user_conf.d/becycled.conf
+      - ./nginx/.htpasswd:/etc/nginx/.htpasswd
       - nginx_letsencrypt:/etc/letsencrypt
 
   frontend:

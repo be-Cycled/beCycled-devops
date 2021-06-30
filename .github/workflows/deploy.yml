@@ -28,4 +28,5 @@ jobs:
             ansible_host=${{secrets.PROD_SERVER_IP}}
             postgres_password=${{secrets.PG_PASSWORD}}
             pg_admin_password=${{secrets.PG_ADMIN_PASSWORD}}
+            nginx_basic_auth=${{secrets.NGINX_BASIC_AUTH}}
             "

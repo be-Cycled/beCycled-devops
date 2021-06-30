@@ -14,3 +14,5 @@ certbot_email: becycled.me@gmail.com
 
 github_login: guest
 github_token: guest
+
+nginx_basic_auth: user:$apr1$.O1k21fS$DADY/z65Px29NiuPQAwiM1

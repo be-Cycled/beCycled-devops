@@ -48,6 +48,10 @@
         src: ../nginx/nginx.conf
         dest: /home/beCycled/nginx/nginx.conf
       register: nginx_conf
+    - name: Copy nginx basic auth file
+      copy:
+        content: "{{ nginx_basic_auth }}"
+        dest: /home/beCycled/nginx/.htpasswd
 
     - name: Init docker-compose file
       template:
