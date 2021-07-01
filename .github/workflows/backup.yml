@@ -1,0 +1,26 @@
+name: Backup
+
+on:
+  schedule:
+    - cron:  '0 21 * * *'
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run ansible backup playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          playbook: pg-dump-backup.playbook.yml
+          directory: ./ansible
+          key: ${{secrets.PROD_SERVER_SSH_PRIVATE_KEY}}
+          inventory: |
+            [linux]
+            beCycled
+          options: >-
+            --extra-vars
+            "
+            ansible_host=${{secrets.PROD_SERVER_IP}}
+            "

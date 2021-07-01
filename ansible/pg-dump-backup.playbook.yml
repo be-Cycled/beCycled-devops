@@ -1,0 +1,9 @@
+---
+- hosts: beCycled
+  tasks:
+    - name: Create directory for dump
+      file:
+        path: /home/beCycled/dump
+        state: directory
+    - name: Backup postgres
+      script: ../scripts/backup/backup.sh
