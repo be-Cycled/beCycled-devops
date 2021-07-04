@@ -105,5 +105,9 @@ services:
     restart: unless-stopped
     environment:
       - URL=https://api.becycled.me/v2/api-docs
+      - OAUTH_CLIENT_ID=web
+      - OAUTH_CLIENT_SECRET=secret
+      - OAUTH_APP_NAME=beCycled
+      - OAUTH_SCOPES=all
     networks:
       - overlay
