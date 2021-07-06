@@ -12,6 +12,10 @@ volumes:
     driver: local
   grafana_data:
     driver: local
+  backend_logs:
+    driver: local
+  iot_hub_logs:
+    driver: local
 
 services:
   nginx:
@@ -47,6 +51,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD={{ postgres_password }}
     networks:
       - overlay
+    volumes:
+      - backend_logs:/logs
 
   iot-hub:
     image: becycled-iot-hub:latest
@@ -58,6 +64,8 @@ services:
       - 10001:10001
     networks:
       - overlay
+    volumes:
+      - iot_hub_logs:/logs
 
   postgres:
     image: postgres:13
