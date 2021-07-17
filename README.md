@@ -2,6 +2,8 @@
 
 Документация и скрипты деплоя и обслуживания проекта.
 
+![beCycled Deploy Status](https://img.shields.io/github/workflow/status/be-Cycled/beCycled-devops/Deploy?label=deploy)
+
 ## Деплой через Ansible
 
 Инструкция по запуску находится в файле
