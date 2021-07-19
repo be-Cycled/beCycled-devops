@@ -24,5 +24,5 @@ $ ansible -i inventory -m ping all
 Запускаем `playbook` для деплоя проекта:
 
 ```bash
-$ ansible-playbook -i inventory deploy-beCycled.playbook.yml
+$ ansible-playbook -i inventory prepare-new-server.playbook.yml
 ```
