@@ -1,0 +1,10 @@
+---
+- hosts: beCycled
+  roles:
+    - apt_force_ipv4
+    - install_ufw
+    - install_fail2ban
+    - install_useful_tools
+    - install_docker
+    - install_java
+    - install_nodejs

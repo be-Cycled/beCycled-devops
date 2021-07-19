@@ -21,8 +21,8 @@ $ ssh-copy-id root@SERVER_IP
 $ ansible -i inventory -m ping all
 ```
 
-Запускаем `playbook` для деплоя проекта:
+Запускаем `playbook` для настройки сервера:
 
 ```bash
-$ ansible-playbook -i inventory deploy-beCycled.playbook.yml
+$ ansible-playbook -i inventory prepare-new-server.playbook.yml
 ```
