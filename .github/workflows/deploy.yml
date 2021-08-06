@@ -27,6 +27,7 @@ jobs:
             github_token=${{secrets.GH_TOKEN}}
             ansible_host=${{secrets.PROD_SERVER_IP}}
             postgres_password=${{secrets.PG_PASSWORD}}
+            no_reply_email_password=${{secrets.NO_REPLY_EMAIL_PASSWORD}}
             pg_admin_password=${{secrets.PG_ADMIN_PASSWORD}}
             nginx_basic_auth=${{secrets.NGINX_BASIC_AUTH}}
             "
