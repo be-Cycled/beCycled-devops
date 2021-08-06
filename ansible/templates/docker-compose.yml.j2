@@ -49,6 +49,7 @@ services:
       - JAVA_OPTIONS=-Xmx512m -Xmx2g
       - SPRING_DATASOURCE_URL=jdbc:postgresql://becycled-postgresql:5432/{{ postgres_db }}
       - SPRING_DATASOURCE_PASSWORD={{ postgres_password }}
+      - SPRING_MAIL_PASSWORD={{ no_reply_email_password }}
     networks:
       - overlay
     volumes:

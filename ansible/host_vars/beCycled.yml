@@ -7,6 +7,8 @@ postgres_db: becycled
 postgres_user: becycled
 postgres_password: becycled
 
+no_reply_email_password: password
+
 pg_admin_email: pgadmin@becycled.me
 pg_admin_password: pgadmin
 
