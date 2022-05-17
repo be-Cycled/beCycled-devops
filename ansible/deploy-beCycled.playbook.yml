@@ -63,4 +63,6 @@
           command: docker-compose up -d
           args:
             chdir: /home/beCycled
-      when: backend_clone.changed or frontend_clone.changed or iot_clone.changed or nginx_conf.changed or docker_compose.changed
+      when: backend_clone.changed or frontend_clone.changed \
+            or iot_clone.changed or nginx_conf.changed \
+            or docker_compose.changed
